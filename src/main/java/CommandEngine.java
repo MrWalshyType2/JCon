@@ -5,14 +5,14 @@ import commands.CommandDirectory;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
-public class Menu {
+public class CommandEngine {
 
     private HashMap<String, Command> commands;
     private CommandInvoker singleInvoker;
 
     private Logger logger = Logger.getLogger(FileService.class.getName());
 
-    public Menu() {
+    public CommandEngine() {
         commands = new CommandDirectory().getCommands();
         singleInvoker = new CommandInvoker();
     }
