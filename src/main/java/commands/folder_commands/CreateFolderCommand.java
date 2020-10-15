@@ -13,7 +13,7 @@ public class CreateFolderCommand implements Command {
 
     @Override
     public String execute() {
-        return null;
+        return folderService.create();
     }
 
     @Override

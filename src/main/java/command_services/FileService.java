@@ -20,7 +20,7 @@ public class FileService {
 
     public String create() {
         try {
-            logger.info("Please enter a name for your file:");
+            logger.info("Please enter a name (including path, abs or rel) for your file:");
             String name = scanner.nextLine();
             file = new File(name);
 
