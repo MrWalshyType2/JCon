@@ -24,15 +24,22 @@ public class FileService {
             String name = scanner.nextLine();
             file = new File(name);
 
-            if (file.createNewFile()) {
-                return getFileInfo();
-            } else {
-                throw new FileAlreadyExists("File with name " + file.getName() + " already exists!");
-            }
+            if (file.createNewFile()) return getFileInfo();
+            else throw new FileAlreadyExists("File with name " + file.getName() + " already exists!");
         } catch (IOException | FileAlreadyExists | FileDoesNotExist e) {
             return e.getMessage();
         }
+    }
 
+    public String quickCreate(String args[]) {
+        try {
+            String name = args[1];
+            file = new File(name);
+            if (file.createNewFile()) return getFileInfo();
+            else throw new FileAlreadyExists("File with name " + file.getName() + " already exists!");
+        } catch (IOException | FileDoesNotExist | FileAlreadyExists e) {
+            return e.getMessage();
+        }
     }
 
     public String open() {
@@ -41,18 +48,13 @@ public class FileService {
 
     private String getFileInfo() throws FileDoesNotExist {
         if (file.exists()) {
-            return "FILE NAME: " + file.getName() + "\n" +
+            return "\nFILE NAME: " + file.getName() + "\n" +
                     "ABSOLUTE PATH: " + file.getAbsolutePath() + "\n" +
                     "WRITEABLE: " + file.canWrite() + "\n" +
                     "READABLE: " + file.canRead() + "\n" +
-                    "FILE SIZE (BYTES): " + file.length();
+                    "FILE SIZE (BYTES): " + file.length() + "\n";
         } else {
             throw new FileDoesNotExist("File with name " + file.getName() + " does not exist!");
         }
-    }
-
-    public String quickCreate(String args[]) {
-        String name = args[1];
-        return name;
     }
 }
