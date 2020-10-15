@@ -126,6 +126,17 @@ public class FileService {
         }
     }
 
+    public String delete() {
+        try {
+            LOGGER.info("Please enter the file name to delete:");
+            file = new File(SCANNER.nextLine());
+            if (file.delete()) return "Deleted file: " + file.getAbsolutePath();
+            else throw new FileDoesNotExist("File does not exist to delete");
+        } catch (FileDoesNotExist fileDoesNotExist) {
+            return fileDoesNotExist.getMessage();
+        }
+    }
+
     private String getFileInfo() throws FileDoesNotExist {
         if (file.exists()) {
             return "\nFILE NAME: " + file.getName() + "\n" +
