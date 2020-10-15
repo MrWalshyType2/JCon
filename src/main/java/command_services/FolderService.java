@@ -78,4 +78,15 @@ public class FolderService {
             return e.getMessage();
         }
     }
+
+    public String quickDelete(String[] args) {
+        try {
+            path = Paths.get(args[1]);
+            if (Files.deleteIfExists(path)) {
+                return "Deleted folder: " + path.toAbsolutePath();
+            } else throw new FolderDoesNotExist("Folder with path '" + path.toAbsolutePath() + "' does not exist!");
+        } catch (FolderDoesNotExist | IOException e) {
+            return e.getMessage();
+        }
+    }
 }

@@ -17,6 +17,6 @@ public class DeleteFolderCommand implements Command {
 
     @Override
     public String execute(String[] args) {
-        return null;
+        return folderService.quickDelete(args);
     }
 }
