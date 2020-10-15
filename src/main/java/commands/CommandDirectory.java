@@ -7,6 +7,7 @@ import commands.file_commands.DeleteFileCommand;
 import commands.file_commands.OpenFileCommand;
 import commands.file_commands.WriteToFileCommand;
 import commands.folder_commands.CreateFolderCommand;
+import commands.folder_commands.DeleteFolderCommand;
 import commands.folder_commands.ReadFolderCommand;
 
 import java.util.HashMap;
@@ -28,6 +29,7 @@ public class CommandDirectory {
         commands.put("read-folder", new ReadFolderCommand(folderService));
         commands.put("write-file", new WriteToFileCommand(fileService));
         commands.put("delete-file", new DeleteFileCommand(fileService));
+        commands.put("delete-folder", new DeleteFolderCommand(folderService));
     }
 
     public HashMap<String, Command> getCommands() {

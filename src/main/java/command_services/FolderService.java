@@ -1,5 +1,7 @@
 package command_services;
 
+import exceptions.FolderDoesNotExist;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -56,11 +58,23 @@ public class FolderService {
         path = Paths.get(args[1]);
         try (Stream<Path> walk = Files.walk(path)) {
             List<String> results = walk.filter(Files::isRegularFile)
-                    .map(r -> r.toString()).collect(Collectors.toList());
+                                       .map(r -> r.toString()).collect(Collectors.toList());
 
             String result = results.stream().collect(Collectors.joining("\n"));
             return result;
         } catch (IOException e) {
+            return e.getMessage();
+        }
+    }
+
+    public String delete() {
+        try {
+            LOGGER.info("Please enter the path of the folder to be deleted:");
+            path = Paths.get(SCANNER.nextLine());
+            if (Files.deleteIfExists(path)) {
+                return "Deleted folder: " + path.toAbsolutePath();
+            } else throw new FolderDoesNotExist("Folder with path '" + path.toAbsolutePath() + "' does not exist!");
+        } catch (IOException | FolderDoesNotExist e) {
             return e.getMessage();
         }
     }
