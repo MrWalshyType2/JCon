@@ -3,6 +3,7 @@ import commands.Command;
 import commands.CommandDirectory;
 
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class CommandEngine {
@@ -10,7 +11,8 @@ public class CommandEngine {
     private HashMap<String, Command> commands;
     private CommandInvoker singleInvoker;
 
-    private Logger logger = Logger.getLogger(FileService.class.getName());
+    private Logger LOGGER = Logger.getLogger(FileService.class.getName());
+    private Scanner SCANNER = new Scanner(System.in);
 
     public CommandEngine() {
         commands = new CommandDirectory().getCommands();
@@ -18,19 +20,25 @@ public class CommandEngine {
     }
 
     public void run() {
-        String input = "create-file";
-        String[] command = input.split(" ");
+        String[] command;
         String res;
 
-        if (command.length == 1) {
-            res = singleInvoker.executeCommand(commands.get(command[0]));
-        } else {
-            res = singleInvoker.executeQuickCommand(commands.get(command[0]), command);
-        }
-        System.out.println(res);
+        while (true) {
+            LOGGER.info("PLEASE ENTER A COMMAND: ");
+            command = SCANNER.nextLine().split(" ");
 
-//        while (true) {
-//            logger.info("PLEASE ENTER A COMMAND: ");
-//        }
+            if (command[0].equalsIgnoreCase("exit") || command[0].equalsIgnoreCase("e")) System.exit(0);
+
+            try {
+                if (command.length == 1) {
+                    res = singleInvoker.executeCommand(commands.get(command[0]));
+                } else {
+                    res = singleInvoker.executeQuickCommand(commands.get(command[0]), command);
+                }
+                LOGGER.info(res);
+            } catch (NullPointerException e) {
+                LOGGER.warning("Command '" + command[0] + "' does not exist!");
+            }
+        }
     }
 }
