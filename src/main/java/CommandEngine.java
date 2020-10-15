@@ -1,6 +1,7 @@
 import command_services.FileService;
 import commands.Command;
 import commands.CommandDirectory;
+import exceptions.CommandDoesNotExist;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -32,11 +33,11 @@ public class CommandEngine {
             try {
                 if (command.length == 1) {
                     res = singleInvoker.executeCommand(commands.get(command[0]));
-                } else {
+                } else if (command.length > 1) {
                     res = singleInvoker.executeQuickCommand(commands.get(command[0]), command);
-                }
+                } else throw new CommandDoesNotExist("Command " + command.toString() + " does not exist!");
                 LOGGER.info(res);
-            } catch (NullPointerException e) {
+            } catch (CommandDoesNotExist e) {
                 LOGGER.warning("Command '" + command[0] + "' does not exist!");
             }
         }
