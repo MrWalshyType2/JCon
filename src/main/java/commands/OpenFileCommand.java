@@ -10,4 +10,9 @@ public class OpenFileCommand implements Command {
     public String execute() {
         return file.open();
     }
+
+    @Override
+    public String execute(String[] args) {
+        return null;
+    }
 }

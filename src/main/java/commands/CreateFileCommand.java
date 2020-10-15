@@ -17,4 +17,9 @@ public class CreateFileCommand implements Command {
     public String execute() {
         return file.create();
     }
+
+    @Override
+    public String execute(String[] args) {
+        return file.quickCreate(args);
+    }
 }

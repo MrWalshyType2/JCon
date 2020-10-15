@@ -52,7 +52,7 @@ public class FileService {
     }
 
     public String quickCreate(String args[]) {
-        String name = args[0];
+        String name = args[1];
         return name;
     }
 }
