@@ -1,11 +1,14 @@
 package command_services;
 
+import exceptions.CommandDoesNotExist;
 import exceptions.FileAlreadyExists;
 import exceptions.FileDoesNotExist;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -71,6 +74,31 @@ public class FileService {
             }
             return fileContents;
         } catch (FileNotFoundException e) {
+            return e.getMessage();
+        }
+    }
+
+    public String write() {
+        try {
+            FileWriter fileWriter;
+            LOGGER.info("Please enter the file name that you would like to write to:");
+            String fileName = SCANNER.nextLine();
+            String fileNameArgs = "test " + fileName;
+            String[] args = fileNameArgs.split(" ");
+
+            LOGGER.info("Complete rewrite or append?");
+            String command = SCANNER.nextLine();
+
+            if (command.equalsIgnoreCase("rewrite")) fileWriter = new FileWriter(fileName, false);
+            else if (command.equalsIgnoreCase("append")) fileWriter = new FileWriter(fileName, true);
+            else throw new CommandDoesNotExist("Command '" + command + "' does not exist for file writing.");
+
+            LOGGER.info("Enter the contents to be written:");
+            String contents = SCANNER.nextLine();
+            fileWriter.write("\n" + contents);
+            fileWriter.close();
+            return quickOpen(args);
+        } catch (IOException | CommandDoesNotExist e) {
             return e.getMessage();
         }
     }

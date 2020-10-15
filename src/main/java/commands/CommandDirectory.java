@@ -4,6 +4,7 @@ import command_services.FileService;
 import command_services.FolderService;
 import commands.file_commands.CreateFileCommand;
 import commands.file_commands.OpenFileCommand;
+import commands.file_commands.WriteToFileCommand;
 import commands.folder_commands.CreateFolderCommand;
 import commands.folder_commands.ReadFolderCommand;
 
@@ -24,6 +25,7 @@ public class CommandDirectory {
         commands.put("create-folder", new CreateFolderCommand(folderService));
         commands.put("read-file", new OpenFileCommand(fileService));
         commands.put("read-folder", new ReadFolderCommand(folderService));
+        commands.put("write-file", new WriteToFileCommand(fileService));
     }
 
     public HashMap<String, Command> getCommands() {
