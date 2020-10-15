@@ -1,0 +1,9 @@
+As a user, I want to be able to create files and folders to store my data.
+
+As a user, I want to be able to read files and folders to see my data.
+
+As a user, I want to be able to update files and folders ensure my data is correct.
+
+As a user, I want to be able to delete files and folders I no longer want.
+
+As a user, I want to be able to send GET requests to an API.
