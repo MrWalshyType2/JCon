@@ -4,6 +4,7 @@ import exceptions.FileAlreadyExists;
 import exceptions.FileDoesNotExist;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -13,15 +14,15 @@ import java.util.logging.Logger;
  */
 public class FileService {
 
-    Logger logger = Logger.getLogger(FileService.class.getName());
-    Scanner scanner = new Scanner(System.in);
+    private final Logger LOGGER = Logger.getLogger(FileService.class.getName());
+    private final Scanner SCANNER = new Scanner(System.in);
 
     private File file;
 
     public String create() {
         try {
-            logger.info("Please enter a name (including path, abs or rel) for your file:");
-            String name = scanner.nextLine();
+            LOGGER.info("Please enter a name (including path, abs or rel) for your file:");
+            String name = SCANNER.nextLine();
             file = new File(name);
 
             if (file.createNewFile()) return getFileInfo();
@@ -43,7 +44,19 @@ public class FileService {
     }
 
     public String open() {
-        return "Opened file: ";
+        try {
+            LOGGER.info("Please enter a name (including path, abs or rel) for the file to open:");
+            file = new File(SCANNER.nextLine());
+            Scanner fileReader = new Scanner(file);
+            String fileContents = "";
+
+            while (fileReader.hasNextLine()) {
+                fileContents += fileReader.nextLine() + "\n";
+            }
+            return fileContents;
+        } catch (FileNotFoundException e) {
+            return e.getMessage();
+        }
     }
 
     private String getFileInfo() throws FileDoesNotExist {

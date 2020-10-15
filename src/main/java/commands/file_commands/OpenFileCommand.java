@@ -5,11 +5,15 @@ import commands.Command;
 
 public class OpenFileCommand implements Command {
 
-    FileService file;
+    FileService fileService;
+
+    public OpenFileCommand(FileService fileService) {
+        this.fileService = fileService;
+    }
 
     @Override
     public String execute() {
-        return file.open();
+        return fileService.open();
     }
 
     @Override
