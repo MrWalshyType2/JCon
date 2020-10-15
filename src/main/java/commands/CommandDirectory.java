@@ -21,7 +21,7 @@ public class CommandDirectory {
 
         commands.put("create-file", new CreateFileCommand(fileService));
         commands.put("create-folder", new CreateFolderCommand(folderService));
-        commands.put("open-file", new OpenFileCommand(fileService));
+        commands.put("read-file", new OpenFileCommand(fileService));
     }
 
     public HashMap<String, Command> getCommands() {

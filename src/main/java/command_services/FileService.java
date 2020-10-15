@@ -59,6 +59,22 @@ public class FileService {
         }
     }
 
+    public String quickOpen(String[] args) {
+        try {
+            file = new File(args[1]);
+            Scanner fileReader = new Scanner(file);
+
+            String fileContents = "";
+
+            while (fileReader.hasNextLine()) {
+                fileContents += fileReader.nextLine() + "\n";
+            }
+            return fileContents;
+        } catch (FileNotFoundException e) {
+            return e.getMessage();
+        }
+    }
+
     private String getFileInfo() throws FileDoesNotExist {
         if (file.exists()) {
             return "\nFILE NAME: " + file.getName() + "\n" +

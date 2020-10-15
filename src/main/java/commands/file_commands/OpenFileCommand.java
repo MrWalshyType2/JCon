@@ -12,12 +12,10 @@ public class OpenFileCommand implements Command {
     }
 
     @Override
-    public String execute() {
-        return fileService.open();
-    }
+    public String execute() { return fileService.open(); }
 
     @Override
     public String execute(String[] args) {
-        return null;
+        return fileService.quickOpen(args);
     }
 }
