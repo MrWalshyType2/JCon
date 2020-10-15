@@ -18,11 +18,20 @@ public class FolderService {
         try {
             LOGGER.info("Please enter a path with the dir to create:");
             path = Paths.get(SCANNER.nextLine());
-            Files.createDirectory(path);
-            return "Folder created successfully!\nPATH: " + path.toString();
+            path = Files.createDirectory(path);
+            return "Folder created successfully!\nPATH: " + path.toString() + "\n";
         } catch (IOException e) {
             return e.getMessage();
         }
+    }
 
+    public String quickCreate(String[] args) {
+        try {
+            path = Paths.get(args[1]);
+            path = Files.createDirectory(path);
+            return "Folder created successfully!\nPATH: " + path.toString() + "\n";
+        } catch (IOException e) {
+            return e.getMessage();
+        }
     }
 }

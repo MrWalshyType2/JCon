@@ -18,6 +18,6 @@ public class CreateFolderCommand implements Command {
 
     @Override
     public String execute(String[] args) {
-        return null;
+        return folderService.quickCreate(args);
     }
 }
