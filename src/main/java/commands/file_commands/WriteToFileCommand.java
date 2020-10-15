@@ -18,6 +18,6 @@ public class WriteToFileCommand implements Command {
 
     @Override
     public String execute(String[] args) {
-        return null;
+        return fileService.quickWrite(args);
     }
 }

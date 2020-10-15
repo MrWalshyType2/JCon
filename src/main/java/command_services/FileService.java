@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * Receiver object for file related requests.
@@ -91,10 +92,32 @@ public class FileService {
 
             if (command.equalsIgnoreCase("rewrite")) fileWriter = new FileWriter(fileName, false);
             else if (command.equalsIgnoreCase("append")) fileWriter = new FileWriter(fileName, true);
-            else throw new CommandDoesNotExist("Command '" + command + "' does not exist for file writing.");
+            else throw new CommandDoesNotExist("File mode '" + command + "' does not exist for file writing.");
 
             LOGGER.info("Enter the contents to be written:");
             String contents = SCANNER.nextLine();
+            fileWriter.write("\n" + contents);
+            fileWriter.close();
+            return quickOpen(args);
+        } catch (IOException | CommandDoesNotExist e) {
+            return e.getMessage();
+        }
+    }
+
+    public String quickWrite(String[] args) {
+        try {
+            String fileName = args[1];
+            String fileMode = args[2];
+            String contents = Arrays.stream(args).filter(x -> x != fileName)
+                                                 .filter(x -> x != fileMode)
+                                                 .filter(x -> x != args[0])
+                                                 .collect(Collectors.joining(" "));
+            FileWriter fileWriter;
+
+            if (fileMode.equalsIgnoreCase("rewrite")) fileWriter = new FileWriter(fileName, false);
+            else if (fileMode.equalsIgnoreCase("append")) fileWriter = new FileWriter(fileName, true);
+            else throw new CommandDoesNotExist("File mode '" + fileMode + "' does not exist for file writing.");
+
             fileWriter.write("\n" + contents);
             fileWriter.close();
             return quickOpen(args);
