@@ -1,6 +1,7 @@
-package commands;
+package commands.file_commands;
 
 import command_services.FileService;
+import commands.Command;
 
 public class OpenFileCommand implements Command {
 
