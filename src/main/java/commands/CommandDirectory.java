@@ -6,10 +6,15 @@ import java.util.HashMap;
 
 public class CommandDirectory {
 
-    private HashMap<String, Command> commands = new HashMap<>();
+    private HashMap<String, Command> commands;
+    private FileService fileService;
 
     public CommandDirectory() {
-        commands.put("create-file", new CreateFileCommand(new FileService()));
+        commands = new HashMap<>();
+        fileService = new FileService();
+
+        commands.put("create-file", new CreateFileCommand(fileService));
+        commands.put("file", new QuickCreateFileCommand(fileService));
     }
 
     public HashMap<String, Command> getCommands() {

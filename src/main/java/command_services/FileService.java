@@ -50,4 +50,9 @@ public class FileService {
             throw new FileDoesNotExist("File with name " + file.getName() + " does not exist!");
         }
     }
+
+    public String quickCreate(String args[]) {
+        String name = args[0];
+        return name;
+    }
 }
