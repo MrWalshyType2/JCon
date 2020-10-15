@@ -12,11 +12,7 @@ import java.util.Map;
 public class Runner {
 
     public static void main(String args[]) {
-        HashMap<String, Command> commands = new CommandDirectory().getCommands();
-
-        SingleCommandInvoker singleInvoker = new SingleCommandInvoker();
-//        String res = singleInvoker.executeCommand(new CreateFileCommand(new FileService()));
-        String res = singleInvoker.executeCommand(commands.get("create-file"));
-        System.out.println(res);
+        Menu menu = new Menu();
+        menu.run();
     }
 }
