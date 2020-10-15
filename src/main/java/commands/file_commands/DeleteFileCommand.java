@@ -18,6 +18,6 @@ public class DeleteFileCommand implements Command {
 
     @Override
     public String execute(String[] args) {
-        return null;
+        return fileService.quickDelete(args);
     }
 }

@@ -137,6 +137,16 @@ public class FileService {
         }
     }
 
+    public String quickDelete(String[] args) {
+        try {
+            file = new File(args[1]);
+            if (file.delete()) return "Deleted file: " + file.getAbsolutePath();
+            else throw new FileDoesNotExist("File does not exist to delete");
+        } catch (FileDoesNotExist fileDoesNotExist) {
+            return fileDoesNotExist.getMessage();
+        }
+    }
+
     private String getFileInfo() throws FileDoesNotExist {
         if (file.exists()) {
             return "\nFILE NAME: " + file.getName() + "\n" +
