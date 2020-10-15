@@ -51,4 +51,17 @@ public class FolderService {
             return e.getMessage();
         }
     }
+
+    public String quickRead(String[] args) {
+        path = Paths.get(args[1]);
+        try (Stream<Path> walk = Files.walk(path)) {
+            List<String> results = walk.filter(Files::isRegularFile)
+                    .map(r -> r.toString()).collect(Collectors.toList());
+
+            String result = results.stream().collect(Collectors.joining("\n"));
+            return result;
+        } catch (IOException e) {
+            return e.getMessage();
+        }
+    }
 }
